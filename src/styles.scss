@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/scss/bootstrap";
+
+:root {
+    --background-color: #0e393f;
+    --text-color: white;
+  }
+  
+  body {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+  }

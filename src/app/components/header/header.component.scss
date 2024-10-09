@@ -1,0 +1,39 @@
+
+#search-bar-personatges {
+    border-radius: 5px;
+    
+}
+
+#search-bar-box {
+    color: #d9e9e7;
+    background-color: #407772;
+    border-color: #407772;
+    border-radius: 18px;
+    padding-right: 30px;
+    position: relative;
+    height: 40px;
+    width: 900px
+}
+
+#search-bar-box::placeholder {
+    color: #d9e9e7;
+}
+
+#loupe {
+    color: #d9e9e7;
+   // background-color: #407772;
+   // border-color: #407772;
+   // border-radius: 18px;
+
+    position: absolute;
+    left: 970px;
+    transform: translateY(25%);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+#loupe svg {
+    width: 16px;
+    height: 16px;
+  }
