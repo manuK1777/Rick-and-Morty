@@ -1,1 +1,50 @@
-<p>characters-list works!</p>
+<div class="container">
+
+    <div class="row">
+        <form class="d-flex" role="search" (ngSubmit)="searchCharacter()">
+            <input class="form-control mt-3" id="search-bar-box" type="search" placeholder="Troba un personatge"
+                aria-label="Search" [(ngModel)]="searchTerm" (ngModelChange)="onSearchInput(searchTerm)" name="searchTerm">
+            <button class="btn btn-outline-success mt-2" id="loupe" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-search"
+                    viewBox="0 0 16 16" stroke="currentColor" stroke-width="1.5">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h2 class="title-line">Llista de personatges</h2>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="row mt-5 justify-content-center">
+        @if(arrCharacters){
+        @for(character of arrCharacters; track character.id){
+
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{character.image}}" alt="{{character.name}} image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{character.name}}</h5>
+                <div class="card-text">
+                    <b>Status: </b>{{character.status}}<br>
+                    <b>Specie: </b>{{character.species}}<br>
+                    <b>Origin: </b>{{character.origin.name}}<br>
+                </div>
+            </div>
+        </div>
+        }
+        }@else{
+        <div>Doesn't found your character.</div>
+        }
+
+    </div>
+
+    <div #scrollAnchor class="infinite-scroll-anchor">
+        <p @If(loading)>Loading more characters...</p> 
+    </div>
+
+</div>
