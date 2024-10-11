@@ -18,6 +18,8 @@ export class CharactersListComponent implements OnInit {
   searchTerm: string = '';
   loading: boolean = false;
   page: number = 1;
+  noCharactersFound: boolean = false;
+  isSearching: boolean = false;
 
   searchSubject = new Subject<string>(); 
 
@@ -26,63 +28,107 @@ export class CharactersListComponent implements OnInit {
   constructor(private getCharacterService: GetCharactersService) {}
 
   ngOnInit(): void {
-   
-    this.loadCharacters();
-
+    this.loadCharacters();  
+    
     this.searchSubject.pipe(
-      debounceTime(300), 
+      debounceTime(300),  
       switchMap((term: string) => {
         this.loading = true;
-        if (term.trim()) {
-          return this.getCharacterService.getCharactersByName(term); 
+        this.isSearching = !!term.trim();  
+        if (this.isSearching) {
+          return this.getCharacterService.getCharactersByName(term);
         } else {
-          this.page = 1;
-          return this.getCharacterService.getCharactersByPage(this.page); 
+          this.page = 1;  
+          return this.getCharacterService.getCharactersByPage(this.page);
         }
       })
     ).subscribe({
       next: (data) => {
-        this.arrCharacters = data.results;
         this.loading = false;
+        if (this.isSearching) {
+          this.arrCharacters = data.results;  
+          this.noCharactersFound = data.results.length === 0;  
+        } else {
+          this.arrCharacters = [...this.arrCharacters, ...data.results];  
+        }
       },
       error: (error) => {
         console.error('Error fetching characters:', error);
-        this.arrCharacters = [];
         this.loading = false;
+        this.arrCharacters = []; 
+        this.noCharactersFound = true; 
       }
     });
+  
+    this.searchSubject.next('');
   }
-
+  
   ngAfterViewInit(): void {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && !this.loading && !this.searchTerm) {
+        if (entry.isIntersecting && !this.loading) {
+          console.log('Scroll anchor visible, loading more characters...');
+         if (this.isSearching) {
+          this.searchSubject.next(this.searchTerm);
+         } else {
           this.loadCharacters();
+         }
         }
       });
     });
-
-    observer.observe(this.scrollAnchor.nativeElement);
+  
+    observer.observe(this.scrollAnchor.nativeElement);  
+    this.loadCharacters;
   }
-  loadCharacters(): void {
-    this.loading = true;
-    this.getCharacterService.getCharactersByPage(this.page).subscribe({
-      next: (data) => {
-        this.arrCharacters = [...this.arrCharacters, ...data.results]; 
-        this.loading = false; 
-      },
-      error: (error) => {
-        console.error('Error fetching characters', error);
-        this.loading = false;
-      }
-    });
+  
+  loadCharacters(page?: number): void {
+    if (!this.isSearching && !this.loading) {
+      this.loading = true;
+  
+      const currentPage = page || this.page;
+      this.getCharacterService.getCharactersByPage(currentPage).subscribe({
+        next: (data) => {
+          this.arrCharacters = [...this.arrCharacters, ...data.results];
+  
+          if (data.info && currentPage < data.info.pages) {
+            this.page = currentPage + 1;
+          } else {
+            console.log("No more pages available");
+          }
+  
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Error loading characters:', error);
+          this.loading = false;
+        }
+      });
+    }
   }
-
+  
   onSearchInput(term: string): void {
-    this.searchSubject.next(term); 
+    this.searchTerm = term.trim();  
+  
+    if (!this.searchTerm) {
+      this.arrCharacters = [];  
+      this.page = 1; 
+      this.isSearching = false;  
+      this.noCharactersFound = false;  
+      this.loadCharacters();  
+    } else {
+   
+      this.arrCharacters = [];  
+      this.page = 1;  
+      this.isSearching = true;  
+      this.noCharactersFound = false;  
+      this.searchSubject.next(this.searchTerm);  
+    }
   }
+  
 
   searchCharacter(): void {
     this.onSearchInput(this.searchTerm);
   }
 }
+
+

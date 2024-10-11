@@ -1,27 +1,50 @@
-# RickAndMorty
+# Proyecto: Rick y Morty
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
+## 📝 Descripción
 
-## Development server
+Proyecto desarrollado como prueba técnica de acceso a la **HACKATÓ 2024** de Barcelona Activa. Las funcionalidades implementadas son:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Acceso a la API y visualización de tarjetas (cards) con la información de los personajes.
+- Barra de búsqueda que permite buscar personajes en tiempo real.
+- Carga automática o scroll infinito para la visualización de más personajes.
 
-## Code scaffolding
+## 💻 Tecnologias
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [Angular CLI](https://angular.dev/) version 18.2.5
+- [Bootstrap](https://getbootstrap.com/) version 5.3.3
+- HTML5
+- SCSS
+- TypeScript
 
-## Build
+## 📋 Requisitos
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Tener instalados **Node.js** y **npm** en tu sistema. Puedes descargarlos desde [nodejs.org](https://nodejs.org/).
 
-## Running unit tests
+- Tener instalado Angular CLI de forma global. Puedes instalarlo con el siguiente comando:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm install -g @angular/cli
+```
 
-## Running end-to-end tests
+## 🛠️ Instrucciones
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+**✔️ Paso 1:** Clona el repositorio:
 
-## Further help
+```bash
+git clone https://github.com/mmartincasas/rickMortyProject
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**✔️ Paso 2:** Navega al directorio del proyecto e instala las dependencias npm:
+
+```bash
+npm install
+```
+
+## 🌐 Servidor de desarrollo
+
+Ejecuta `ng serve` para iniciar el servidor de desarrollo. Luego abre el servidor local en tu explorador (generalmente `http://localhost:4200/`). La aplicación se recargará automáticamente cada vez que modifiques alguno de los archivos del proyecto.
+
+## 📚 Recursos
+
+- API Rick y Morty:
+    - [rickandmortyapi](https://rickandmortyapi.com)

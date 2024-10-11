@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Characters } from '../interfaces/characters';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetCharactersService {
+  getMoreCharactersByUrl(nextPageUrl: string) {
+    throw new Error('Method not implemented.');
+  }
 
-  private apiUrl = 'https://rickandmortyapi.com/api/character/';
+  private apiUrl = 'https://rickandmortyapi.com/api/character';
 
   constructor(private http: HttpClient) { }
 
