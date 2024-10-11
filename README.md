@@ -1,8 +1,8 @@
-# Proyecto: Rick y Morty
+# Rick And Morty
 
 ## 📝 Descripción
 
-Proyecto desarrollado como prueba técnica de acceso a la **HACKATÓ 2024** de Barcelona Activa. Las funcionalidades implementadas son:
+ Prueba técnica de acceso a la **HACKATÓ 2024** de Barcelona Activa. Las funcionalidades implementadas son:
 
 - Acceso a la API y visualización de tarjetas (cards) con la información de los personajes.
 - Barra de búsqueda que permite buscar personajes en tiempo real.
